@@ -1,0 +1,60 @@
+---
+---
+
+@import "minima";
+
+/* =========================
+   Global Typography
+   ========================= */
+body {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #222;
+}
+
+/* =========================
+   Headings
+   ========================= */
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* =========================
+   Page Width
+   ========================= */
+.page-content {
+  max-width: 960px;
+}
+
+/* =========================
+   Navigation
+   ========================= */
+.site-nav a {
+  font-weight: 500;
+}
+
+/* =========================
+   Links
+   ========================= */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Lists
+   ========================= */
+ul {
+  margin-left: 1.2rem;
+}
+
+/* =========================
+   Section spacing
+   ========================= */
+hr {
+  margin: 2.5rem 0;
+}
