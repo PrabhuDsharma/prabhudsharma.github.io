@@ -1,0 +1,9 @@
+title: PrabhuDharma
+description: Microsoft Fabric, Power BI, and Data Engineering learning notes
+theme: minima
+
+header_pages:
+  - index.md
+  - fabric.md
+  - power-bi.md
+  - data-engineering.md
