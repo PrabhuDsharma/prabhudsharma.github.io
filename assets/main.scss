@@ -1,60 +1,32 @@
----
----
-
-@import "minima";
-
 /* =========================
-   Global Typography
+   Section Cards
    ========================= */
-body {
-  font-size: 17px;
-  line-height: 1.7;
-  color: #222;
+.section {
+  background: #fafafa;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  border-left: 4px solid #0067b8;
+}
+
+.section h2 {
+  margin-top: 0;
 }
 
 /* =========================
-   Headings
+   Track items
    ========================= */
-h1, h2, h3 {
+.track {
+  margin-bottom: 1.5rem;
+}
+
+.track-title {
   font-weight: 600;
-  letter-spacing: -0.3px;
+  font-size: 1.05rem;
 }
 
 /* =========================
-   Page Width
+   CTA links
    ========================= */
-.page-content {
-  max-width: 960px;
-}
-
-/* =========================
-   Navigation
-   ========================= */
-.site-nav a {
+.track a {
   font-weight: 500;
-}
-
-/* =========================
-   Links
-   ========================= */
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* =========================
-   Lists
-   ========================= */
-ul {
-  margin-left: 1.2rem;
-}
-
-/* =========================
-   Section spacing
-   ========================= */
-hr {
-  margin: 2.5rem 0;
 }
