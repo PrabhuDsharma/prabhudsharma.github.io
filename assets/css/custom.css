@@ -1,0 +1,29 @@
+/* Typography */
+body {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+/* Page width */
+.page-content {
+  max-width: 920px;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Lists */
+ul {
+  margin-left: 1.2rem;
+}
