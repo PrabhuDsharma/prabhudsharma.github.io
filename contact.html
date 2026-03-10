@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Prabhudeep Sharma</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-initials">PS</div>
+      <div><div class="nav-name">Prabhudeep Sharma</div><div class="nav-sub">The Fabric Guy</div></div>
+    </a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="vlog.html">Vlog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
+  <h1>Get in Touch</h1>
+  <p>Have a data challenge? Let's talk about how I can help your organisation.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- CONTACT INFO -->
+      <div class="contact-info fade-up">
+        <h2 style="margin-bottom:8px">Let's Connect</h2>
+        <p style="margin-bottom:28px">I'm open to consulting opportunities, collaborations, and speaking engagements.</p>
+
+        <a href="mailto:prabhusharma761@gmail.com" class="contact-card" style="text-decoration:none">
+          <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">prabhusharma761@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank" class="contact-card" style="text-decoration:none">
+          <div class="contact-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+          <div>
+            <div class="contact-card-label">LinkedIn</div>
+            <div class="contact-card-value">linkedin.com/in/prabhu-sharma/</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/PrabhuDsharma" target="_blank" class="contact-card" style="text-decoration:none">
+          <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+          <div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">github.com/PrabhuDsharma</div>
+          </div>
+        </a>
+
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <div class="contact-card-label">Location</div>
+            <div class="contact-card-value">India</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding:20px;background:var(--primary-lighter);border-radius:var(--radius-lg);border:1px solid var(--primary-light)">
+          <div style="font-weight:600;color:var(--text);margin-bottom:6px"><i class="fa-solid fa-circle-check" style="color:var(--primary);margin-right:6px"></i>Open to Opportunities</div>
+          <p style="font-size:0.875rem">Consulting engagements, freelance projects, and full-time roles in Data Engineering, Analytics, and Microsoft Fabric.</p>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <!-- To enable form submissions, sign up at formspree.io and replace YOUR_FORM_ID below -->
+      <div class="contact-form fade-up fade-up-delay-1">
+        <h3 style="margin-bottom:6px">Send a Message</h3>
+        <p style="font-size:0.875rem;margin-bottom:24px">Fill out the form and I'll get back to you within 24 hours.</p>
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="John Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="e.g. Power BI Consulting Enquiry" required />
+          </div>
+          <div class="form-group">
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic">
+              <option value="">Select a topic...</option>
+              <option>Power BI / Reporting</option>
+              <option>Microsoft Fabric</option>
+              <option>Azure Synapse Analytics</option>
+              <option>Data Engineering</option>
+              <option>Consulting / Project</option>
+              <option>Speaking / Content</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project or question..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-row"><div class="nav-initials">PS</div><div class="footer-brand-name">Prabhudeep Sharma</div></div>
+      <p class="footer-tagline">Senior Analytics Consultant — Microsoft Fabric, Power BI, Data Engineering.</p>
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/PrabhuDsharma" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:prabhusharma761@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li><li><a href="vlog.html">Vlog</a></li><li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Certifications</h4>
+      <ul><li><a href="#">PL-300</a></li><li><a href="#">DP-700</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Prabhudeep Sharma</span><span>Built with Microsoft Fluent Design</span>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
