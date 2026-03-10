@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabric Lakehouse vs Warehouse — Prabhudeep Sharma</title>
+  <meta name="description" content="A practical comparison of Microsoft Fabric Lakehouse vs Warehouse — when to use each based on real project experience." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .article-layout { display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+    .article-body { min-width: 0; }
+    .article-header { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .article-header h1 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 16px; line-height: 1.3; }
+    .article-info { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; color: var(--text-secondary); font-size: 0.875rem; }
+    .article-info i { color: var(--primary); margin-right: 5px; }
+    .article-content { font-size: 1rem; line-height: 1.8; color: var(--text-secondary); }
+    .article-content h2 { font-size: 1.4rem; color: var(--text); margin: 40px 0 14px; padding-top: 8px; }
+    .article-content h3 { font-size: 1.1rem; color: var(--text); margin: 28px 0 10px; }
+    .article-content p { margin-bottom: 18px; }
+    .article-content ul, .article-content ol { padding-left: 24px; margin-bottom: 18px; }
+    .article-content li { margin-bottom: 8px; }
+    .article-content strong { color: var(--text); }
+    .article-content a { color: var(--primary); }
+    .article-content blockquote { border-left: 3px solid var(--primary); padding: 14px 20px; background: var(--primary-lighter); border-radius: 0 var(--radius) var(--radius) 0; margin: 24px 0; font-style: italic; color: var(--text); }
+    .article-content blockquote p { margin: 0; }
+    .callout { background: var(--primary-lighter); border: 1px solid var(--primary-light); border-radius: var(--radius-lg); padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-weight: 700; color: var(--primary); margin-bottom: 6px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 0.9rem; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
+    .comparison-table th { background: var(--primary); color: #fff; padding: 12px 16px; text-align: left; font-weight: 600; }
+    .comparison-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--bg); }
+    .article-footer { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .author-card { display: flex; gap: 16px; align-items: center; background: var(--bg); border-radius: var(--radius-lg); padding: 24px; }
+    .author-avatar { width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary), var(--primary-darker)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+    .toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: sticky; top: 84px; }
+    .toc h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 14px; }
+    .toc ul { padding: 0; }
+    .toc li { margin-bottom: 8px; }
+    .toc a { font-size: 0.875rem; color: var(--text-secondary); transition: color var(--transition); }
+    .toc a:hover { color: var(--primary); }
+    .toc-divider { height: 1px; background: var(--border); margin: 16px 0; }
+    @media(max-width:900px) { .article-layout { grid-template-columns: 1fr; } .toc { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-brand">
+      <div class="nav-initials">PS</div>
+      <div><div class="nav-name">Prabhudeep Sharma</div><div class="nav-sub">The Fabric Guy</div></div>
+    </a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../vlog.html">Blog</a></li>
+      <li><a href="../contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section style="background:var(--surface);padding:20px 24px 0;border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="breadcrumb" style="justify-content:flex-start;margin:0;padding:12px 0">
+      <a href="../index.html">Home</a><span>/</span>
+      <a href="../vlog.html">Blog</a><span>/</span>
+      <span style="color:var(--text-secondary)">Fabric Lakehouse vs Warehouse</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="article-layout">
+
+      <!-- ARTICLE BODY -->
+      <article class="article-body">
+        <header class="article-header">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+            <span class="badge">Microsoft Fabric</span>
+            <span class="badge badge-orange">Architecture</span>
+          </div>
+          <h1>Fabric Lakehouse vs Warehouse — Which Should You Use?</h1>
+          <div class="article-info">
+            <span><i class="fa-regular fa-calendar"></i> March 2025</span>
+            <span><i class="fa-regular fa-clock"></i> 5 min read</span>
+            <span><i class="fa-solid fa-user"></i> Prabhudeep Sharma</span>
+          </div>
+        </header>
+
+        <div class="article-content">
+
+          <p>One of the most common questions I get from clients exploring Microsoft Fabric is: <strong>"Should we build on a Lakehouse or a Warehouse?"</strong> Both are first-class citizens in Fabric, both sit on OneLake, and both can be queried with SQL. So what's the actual difference?</p>
+
+          <p>After deploying both across Pharma, Manufacturing, and FMCG clients, here's my practical take.</p>
+
+          <h2 id="quick-answer">The Quick Answer</h2>
+
+          <div class="callout">
+            <div class="callout-title"><i class="fa-solid fa-lightbulb"></i> Rule of Thumb</div>
+            <p style="margin:0">Use a <strong>Lakehouse</strong> when you need flexibility — mixed file formats, data science, and PySpark pipelines. Use a <strong>Warehouse</strong> when your team lives in SQL and needs strict governance, transactions, and clean schema control.</p>
+          </div>
+
+          <h2 id="lakehouse">What is a Fabric Lakehouse?</h2>
+
+          <p>A Fabric Lakehouse stores data as <strong>Delta Parquet files</strong> on OneLake. It gives you a dual endpoint — a <strong>SQL analytics endpoint</strong> for read-only SQL queries, and a Spark endpoint for full read/write access via notebooks.</p>
+
+          <p>The key advantages:</p>
+          <ul>
+            <li>Works natively with PySpark and Python notebooks</li>
+            <li>Supports unstructured, semi-structured, and structured data</li>
+            <li>Open format (Delta Lake) — no vendor lock-in at the storage layer</li>
+            <li>Ideal for Medallion Architecture (Bronze → Silver → Gold)</li>
+            <li>Great for ingesting raw data from APIs, ERP systems, and streaming sources</li>
+          </ul>
+
+          <p>The limitation: the SQL endpoint is <strong>read-only</strong>. You can't do INSERT, UPDATE, or DELETE from SQL — you need Spark for writes.</p>
+
+          <h2 id="warehouse">What is a Fabric Warehouse?</h2>
+
+          <p>A Fabric Warehouse is a <strong>fully managed T-SQL data warehouse</strong> built on OneLake. Unlike the Lakehouse SQL endpoint, this is a full read-write SQL engine — you can INSERT, UPDATE, DELETE, create stored procedures, and manage transactions.</p>
+
+          <p>The key advantages:</p>
+          <ul>
+            <li>Full T-SQL support — INSERT, UPDATE, DELETE, MERGE, stored procedures</li>
+            <li>Familiar for SQL-first teams and BI developers</li>
+            <li>Better transaction support and stricter schema governance</li>
+            <li>Simpler to expose to Power BI semantic models</li>
+            <li>No need to know Spark</li>
+          </ul>
+
+          <p>The limitation: it's SQL-only. No native Python/Spark access, and less flexible for raw/unstructured data ingestion.</p>
+
+          <h2 id="comparison">Side-by-Side Comparison</h2>
+
+          <table class="comparison-table">
+            <thead>
+              <tr><th>Feature</th><th>Lakehouse</th><th>Warehouse</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Storage format</td><td>Delta Parquet (open)</td><td>Delta Parquet (managed)</td></tr>
+              <tr><td>SQL writes</td><td>Read-only via SQL endpoint</td><td>Full T-SQL (INSERT/UPDATE/DELETE)</td></tr>
+              <tr><td>PySpark / Python</td><td>Yes — native</td><td>No</td></tr>
+              <tr><td>Stored procedures</td><td>No</td><td>Yes</td></tr>
+              <tr><td>Best for</td><td>Data engineering, raw ingestion</td><td>BI, reporting, SQL-first teams</td></tr>
+              <tr><td>Medallion Architecture</td><td>Excellent (Bronze/Silver/Gold)</td><td>Good (Gold layer)</td></tr>
+              <tr><td>Power BI integration</td><td>Via SQL endpoint</td><td>Direct, simpler</td></tr>
+              <tr><td>Schema governance</td><td>Flexible / schema-on-read</td><td>Strict / schema-on-write</td></tr>
+            </tbody>
+          </table>
+
+          <h2 id="real-world">What I Use in Practice</h2>
+
+          <p>In almost every project, <strong>I use both</strong> — and they serve different layers of the architecture.</p>
+
+          <blockquote><p>The Lakehouse handles ingestion and transformation. The Warehouse (or Lakehouse Gold layer) serves the reporting layer. Power BI sits on top of both.</p></blockquote>
+
+          <h3>Example: FMCG Multi-Entity Platform</h3>
+          <p>On a recent FMCG project, I used:</p>
+          <ul>
+            <li><strong>Lakehouse (Bronze)</strong> — raw D365 ERP data, POS API JSON, website events ingested via PySpark notebooks</li>
+            <li><strong>Lakehouse (Silver)</strong> — cleaned, typed, deduplicated data in Delta tables</li>
+            <li><strong>Lakehouse (Gold)</strong> — aggregated business entities (Sales, Inventory, Customer) as Delta tables</li>
+            <li><strong>Power BI</strong> — semantic model on top of the Gold Lakehouse SQL endpoint</li>
+          </ul>
+          <p>No Warehouse was needed here because the team was PySpark-native and we didn't need write-back from SQL.</p>
+
+          <h3>Example: Pharma ERP Reporting</h3>
+          <p>On a Pharma project with a SQL-heavy team:</p>
+          <ul>
+            <li><strong>Lakehouse</strong> — Bronze and Silver ingestion via Data Factory pipelines</li>
+            <li><strong>Warehouse</strong> — Gold layer with stored procedures, views, and clean dimensional models for Power BI</li>
+          </ul>
+          <p>The Warehouse gave the team a familiar SQL surface and made governance of the reporting layer much simpler.</p>
+
+          <h2 id="decision">Decision Framework</h2>
+
+          <p>Here's the framework I use with clients:</p>
+          <ul>
+            <li><strong>Do you need PySpark / Python for transformation?</strong> → Lakehouse</li>
+            <li><strong>Is your team SQL-first with no Spark experience?</strong> → Warehouse</li>
+            <li><strong>Do you need to write back to the store from SQL?</strong> → Warehouse</li>
+            <li><strong>Are you building a Medallion Architecture?</strong> → Lakehouse for Bronze/Silver, either for Gold</li>
+            <li><strong>Do you need stored procedures for business logic?</strong> → Warehouse</li>
+          </ul>
+
+          <h2 id="conclusion">Conclusion</h2>
+
+          <p>Neither is universally better — they solve different problems. The Lakehouse is your flexible, code-first data engineering layer. The Warehouse is your SQL-governed, BI-ready reporting layer.</p>
+
+          <p>In most enterprise Fabric deployments, you'll use both. The real question isn't which to pick — it's <strong>which layer of your architecture each should serve</strong>.</p>
+
+        </div>
+
+        <!-- AUTHOR -->
+        <div class="article-footer">
+          <div class="author-card">
+            <div class="author-avatar">PS</div>
+            <div>
+              <div style="font-weight:600;color:var(--text)">Prabhudeep Sharma</div>
+              <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:2px">Senior Analytics Consultant · Microsoft Certified PL-300 & DP-700</div>
+              <div style="display:flex;gap:10px;margin-top:10px">
+                <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank" class="btn btn-outline btn-sm"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+                <a href="../contact.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <a href="../vlog.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-arrow-left"></i> Back to Blog</a>
+            <div style="font-size:0.875rem;color:var(--text-secondary)">Share this article:
+              <a href="https://linkedin.com/shareArticle" target="_blank" style="margin-left:8px;color:var(--primary)"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- SIDEBAR / TOC -->
+      <aside>
+        <div class="toc fade-up">
+          <h4>Table of Contents</h4>
+          <ul>
+            <li><a href="#quick-answer">The Quick Answer</a></li>
+            <li><a href="#lakehouse">What is a Lakehouse?</a></li>
+            <li><a href="#warehouse">What is a Warehouse?</a></li>
+            <li><a href="#comparison">Side-by-Side Comparison</a></li>
+            <li><a href="#real-world">What I Use in Practice</a></li>
+            <li><a href="#decision">Decision Framework</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+          </ul>
+          <div class="toc-divider"></div>
+          <div style="font-size:0.78rem;color:var(--text-secondary)">
+            <i class="fa-regular fa-clock" style="color:var(--primary)"></i> 5 min read<br/>
+            <i class="fa-regular fa-calendar" style="color:var(--primary);margin-top:6px;display:inline-block"></i> March 2025
+          </div>
+          <div class="toc-divider"></div>
+          <a href="../contact.html" class="btn btn-primary btn-sm" style="width:100%;justify-content:center">
+            <i class="fa-solid fa-paper-plane"></i> Work with Me
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-row"><div class="nav-initials">PS</div><div class="footer-brand-name">Prabhudeep Sharma</div></div>
+      <p class="footer-tagline">Senior Analytics Consultant — Microsoft Fabric, Power BI, Data Engineering.</p>
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/PrabhuDsharma" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:prabhusharma761@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li><li><a href="../about.html">About</a></li>
+        <li><a href="../projects.html">Projects</a></li><li><a href="../vlog.html">Blog</a></li><li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="../vlog.html">Microsoft Fabric</a></li>
+        <li><a href="../vlog.html">Power BI</a></li>
+        <li><a href="../vlog.html">Azure Synapse</a></li>
+        <li><a href="../vlog.html">PySpark</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Prabhudeep Sharma</span><span>Built with Microsoft Fluent Design</span>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -3,9 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vlog — Prabhudeep Sharma</title>
+  <title>Blog — Prabhudeep Sharma</title>
+  <meta name="description" content="Technical articles on Microsoft Fabric, Power BI, and Data Engineering by Prabhudeep Sharma." />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== BLOG SPECIFIC ===== */
+    .blog-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+    .filter-btn { padding: 7px 18px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--transition); font-family: var(--font); }
+    .filter-btn:hover, .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+
+    .article-card { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; transition: all var(--transition); display: flex; flex-direction: column; }
+    .article-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: var(--primary-light); }
+
+    .article-card-top { padding: 28px 28px 0; }
+    .article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .article-date { font-size: 0.78rem; color: var(--text-tertiary); }
+    .article-read-time { font-size: 0.78rem; color: var(--text-tertiary); display: flex; align-items: center; gap: 4px; }
+    .article-card h3 { font-size: 1.1rem; margin-bottom: 10px; line-height: 1.4; }
+    .article-card h3 a { color: var(--text); text-decoration: none; transition: color var(--transition); }
+    .article-card h3 a:hover { color: var(--primary); }
+    .article-excerpt { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 20px; }
+
+    .article-card-footer { padding: 16px 28px 24px; margin-top: auto; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .article-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .article-read-link { font-size: 0.82rem; font-weight: 600; color: var(--primary); white-space: nowrap; display: flex; align-items: center; gap: 4px; transition: gap var(--transition); }
+    .article-read-link:hover { gap: 8px; }
+
+    /* Featured article */
+    .featured-article { background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 56px; }
+    .featured-label { display: inline-flex; align-items: center; gap: 6px; background: #fff4ce; color: #ca5010; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+    .featured-article h2 { font-size: 1.6rem; margin-bottom: 12px; line-height: 1.3; }
+    .featured-article h2 a { color: var(--text); text-decoration: none; }
+    .featured-article h2 a:hover { color: var(--primary); }
+    .featured-article p { margin-bottom: 20px; }
+    .featured-visual { background: linear-gradient(135deg, var(--primary-lighter), var(--primary-light)); border-radius: var(--radius-lg); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary); }
+
+    /* Coming soon card */
+    .article-card-soon { opacity: 0.6; pointer-events: none; }
+    .article-card-soon .soon-overlay { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); background: var(--surface-alt); border-radius: 20px; padding: 3px 10px; }
+
+    @media(max-width:768px) {
+      .featured-article { grid-template-columns: 1fr; }
+      .featured-visual { display: none; }
+      .article-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,110 +65,144 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="vlog.html">Vlog</a></li>
+      <li><a href="vlog.html">Blog</a></li>
       <li><a href="contact.html" class="nav-cta">Contact</a></li>
     </ul>
   </div>
 </nav>
 
 <section class="page-hero">
-  <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Vlog</span></div>
-  <h1>Vlog & Learning Notes</h1>
-  <p>Hands-on technical content on Microsoft Fabric, Power BI, and Data Engineering — written from real delivery experience.</p>
+  <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Blog</span></div>
+  <h1>Blog & Articles</h1>
+  <p>Concise, technical writing on Microsoft Fabric, Power BI, and Data Engineering — based on real delivery experience.</p>
 </section>
 
-<!-- FEATURED VIDEO -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Featured</span>
-      <h2>Latest Video</h2>
-    </div>
-    <!-- REPLACE src with your YouTube embed URL: https://www.youtube.com/embed/VIDEO_ID -->
-    <div style="max-width:800px;margin:0 auto" class="fade-up">
-      <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;color:#fff;font-size:1.1rem;border:1px solid var(--border)">
-        <i class="fa-brands fa-youtube" style="font-size:3rem;color:#ff0000"></i>
-        <span style="font-weight:600">Coming Soon</span>
-        <span style="font-size:0.85rem;opacity:0.7">Subscribe to get notified when the first video drops</span>
-        <a href="https://youtube.com" target="_blank" class="btn btn-primary btn-sm" style="margin-top:8px"><i class="fa-brands fa-youtube"></i> Subscribe on YouTube</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TOPICS -->
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Topics</span>
-      <h2>What I Cover</h2>
-      <p>Concise, technical content based on hands-on work — not marketing summaries.</p>
+
+    <!-- FEATURED -->
+    <div class="featured-article fade-up">
+      <div>
+        <div class="featured-label"><i class="fa-solid fa-star"></i> Featured Article</div>
+        <h2><a href="articles/fabric-lakehouse-vs-warehouse.html">Fabric Lakehouse vs Warehouse — Which Should You Use?</a></h2>
+        <p>One of the most common questions I get from clients: should we use a Lakehouse or a Warehouse in Microsoft Fabric? Here's a practical breakdown based on real projects.</p>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <span class="badge">Microsoft Fabric</span>
+          <span class="article-date"><i class="fa-regular fa-calendar"></i> March 2025</span>
+          <span class="article-read-time"><i class="fa-regular fa-clock"></i> 5 min read</span>
+        </div>
+        <br/>
+        <a href="articles/fabric-lakehouse-vs-warehouse.html" class="btn btn-primary btn-sm">Read Article →</a>
+      </div>
+      <div class="featured-visual"><i class="fa-solid fa-network-wired"></i></div>
     </div>
-    <div class="vlog-grid">
 
-      <div class="vlog-card fade-up">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#0078d4,#005a9e)">
-          <i class="fa-solid fa-network-wired"></i>
+    <!-- FILTERS -->
+    <div class="blog-filters">
+      <button class="filter-btn active" data-filter="all">All Articles</button>
+      <button class="filter-btn" data-filter="fabric">Microsoft Fabric</button>
+      <button class="filter-btn" data-filter="powerbi">Power BI</button>
+      <button class="filter-btn" data-filter="synapse">Azure Synapse</button>
+      <button class="filter-btn" data-filter="pyspark">PySpark</button>
+      <button class="filter-btn" data-filter="architecture">Architecture</button>
+    </div>
+
+    <!-- ARTICLES GRID -->
+    <div class="article-grid">
+
+      <div class="article-card fade-up" data-category="fabric">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge">Microsoft Fabric</span>
+            <span class="article-date">Mar 2025</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> 5 min</span>
+          </div>
+          <h3><a href="articles/fabric-lakehouse-vs-warehouse.html">Fabric Lakehouse vs Warehouse — Which Should You Use?</a></h3>
+          <p class="article-excerpt">A practical comparison of Fabric Lakehouse and Warehouse — when to use each, storage differences, and what I've seen work in real client environments.</p>
         </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge">Microsoft Fabric</span></div>
-          <h3>Microsoft Fabric Architecture Deep Dive</h3>
-          <p>OneLake, Lakehouse vs Warehouse, Direct Lake mode, and how Fabric components work together in a real enterprise setup.</p>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge">Fabric</span><span class="badge">Architecture</span></div>
+          <a href="articles/fabric-lakehouse-vs-warehouse.html" class="article-read-link">Read <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
 
-      <div class="vlog-card fade-up fade-up-delay-1">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-          <i class="fa-solid fa-chart-bar"></i>
+      <div class="article-card fade-up fade-up-delay-1" data-category="powerbi">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge">Power BI</span>
+            <span class="article-date">Coming Soon</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> ~6 min</span>
+          </div>
+          <h3><a href="#">RLS in Power BI — A Practical Implementation Guide</a></h3>
+          <p class="article-excerpt">How I implement Row-Level Security across multi-role enterprise dashboards, including Dynamic RLS patterns that scale without maintenance overhead.</p>
         </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge">Power BI</span></div>
-          <h3>DAX Patterns That Actually Matter</h3>
-          <p>Practical DAX patterns for semantic modelling, time intelligence, and performance tuning — from real client dashboards.</p>
-        </div>
-      </div>
-
-      <div class="vlog-card fade-up fade-up-delay-2">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#107c10,#0a5e0a)">
-          <i class="fa-brands fa-python"></i>
-        </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge badge-green">PySpark</span></div>
-          <h3>PySpark in Microsoft Fabric Notebooks</h3>
-          <p>How to use PySpark notebooks in Fabric for data ingestion, transformation, and optimisation at scale.</p>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge">Power BI</span><span class="badge">RLS</span></div>
+          <span class="soon-overlay">Coming Soon</span>
         </div>
       </div>
 
-      <div class="vlog-card fade-up">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#5c2d91,#3b1f6e)">
-          <i class="fa-solid fa-database"></i>
+      <div class="article-card fade-up fade-up-delay-2" data-category="architecture">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge badge-orange">Architecture</span>
+            <span class="article-date">Coming Soon</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> ~8 min</span>
+          </div>
+          <h3><a href="#">Medallion Architecture in Fabric — Bronze to Gold in Practice</a></h3>
+          <p class="article-excerpt">Building a production-ready Bronze → Silver → Gold Lakehouse in Microsoft Fabric. Naming conventions, transformation patterns, and governance that actually scales.</p>
         </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge badge-purple">Azure Synapse</span></div>
-          <h3>Azure Synapse Serverless SQL — A Practical Guide</h3>
-          <p>Querying data from ADLS Gen2 using Serverless SQL Pool — cost-efficient analytics without a dedicated compute cluster.</p>
-        </div>
-      </div>
-
-      <div class="vlog-card fade-up fade-up-delay-1">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#ca5010,#8b3a0c)">
-          <i class="fa-solid fa-layer-group"></i>
-        </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge badge-orange">Architecture</span></div>
-          <h3>Medallion Architecture in Practice</h3>
-          <p>Building Bronze → Silver → Gold layers in a Fabric Lakehouse — naming conventions, transformation patterns, and governance.</p>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge">Fabric</span><span class="badge badge-orange">Architecture</span></div>
+          <span class="soon-overlay">Coming Soon</span>
         </div>
       </div>
 
-      <div class="vlog-card fade-up fade-up-delay-2">
-        <div class="vlog-thumb" style="background:linear-gradient(135deg,#0078d4,#106ebe)">
-          <i class="fa-solid fa-bolt"></i>
+      <div class="article-card fade-up" data-category="pyspark">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge badge-green">PySpark</span>
+            <span class="article-date">Coming Soon</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> ~7 min</span>
+          </div>
+          <h3><a href="#">PySpark Notebooks in Fabric — Patterns I Use Every Day</a></h3>
+          <p class="article-excerpt">Practical PySpark patterns for data ingestion, incremental loads, and optimisation inside Microsoft Fabric Notebooks — from real projects.</p>
         </div>
-        <div class="vlog-body">
-          <div class="vlog-meta"><span class="badge">Power Automate</span></div>
-          <h3>Automating Power BI Report Distribution</h3>
-          <p>How I automated executive report delivery using Power BI and Power Automate — with HTML-formatted email analytics.</p>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge badge-green">PySpark</span><span class="badge">Fabric</span></div>
+          <span class="soon-overlay">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="article-card fade-up fade-up-delay-1" data-category="synapse">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge badge-purple">Azure Synapse</span>
+            <span class="article-date">Coming Soon</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> ~5 min</span>
+          </div>
+          <h3><a href="#">Synapse Serverless SQL — Cost-Effective Analytics at Scale</a></h3>
+          <p class="article-excerpt">Querying ADLS Gen2 data with Serverless SQL Pool — how to keep costs low while delivering fast, ad-hoc analytics without a dedicated cluster.</p>
+        </div>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge badge-purple">Synapse</span><span class="badge">SQL</span></div>
+          <span class="soon-overlay">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="article-card fade-up fade-up-delay-2" data-category="powerbi">
+        <div class="article-card-top">
+          <div class="article-meta">
+            <span class="badge">Power BI</span>
+            <span class="article-date">Coming Soon</span>
+            <span class="article-read-time"><i class="fa-regular fa-clock"></i> ~6 min</span>
+          </div>
+          <h3><a href="#">DAX Patterns That Actually Improve Report Performance</a></h3>
+          <p class="article-excerpt">The DAX patterns I reach for on every project — time intelligence, running totals, dynamic segmentation — and why most tutorials teach them wrong.</p>
+        </div>
+        <div class="article-card-footer">
+          <div class="article-tags"><span class="badge">Power BI</span><span class="badge">DAX</span></div>
+          <span class="soon-overlay">Coming Soon</span>
         </div>
       </div>
 
@@ -131,14 +210,13 @@
   </div>
 </section>
 
-<!-- SUBSCRIBE BANNER -->
 <section class="cta-banner">
   <div class="container">
-    <h2>Stay in the loop</h2>
-    <p>Follow along on YouTube and LinkedIn for new content on Microsoft Fabric and Power BI.</p>
+    <h2>Want to be notified of new articles?</h2>
+    <p>Follow me on LinkedIn where I share all new posts and data engineering insights.</p>
     <div class="cta-actions">
-      <a href="https://youtube.com" target="_blank" class="btn btn-white"><i class="fa-brands fa-youtube"></i> Subscribe on YouTube</a>
-      <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank" class="btn btn-outline-white"><i class="fa-brands fa-linkedin-in"></i> Follow on LinkedIn</a>
+      <a href="https://linkedin.com/in/prabhu-sharma/" target="_blank" class="btn btn-white"><i class="fa-brands fa-linkedin-in"></i> Follow on LinkedIn</a>
+      <a href="contact.html" class="btn btn-outline-white">Get in Touch</a>
     </div>
   </div>
 </section>
@@ -158,7 +236,7 @@
       <h4>Navigation</h4>
       <ul>
         <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li><li><a href="vlog.html">Vlog</a></li><li><a href="contact.html">Contact</a></li>
+        <li><a href="projects.html">Projects</a></li><li><a href="vlog.html">Blog</a></li><li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -168,6 +246,7 @@
         <li><a href="#">Power BI</a></li>
         <li><a href="#">Azure Synapse</a></li>
         <li><a href="#">PySpark</a></li>
+        <li><a href="#">Architecture</a></li>
       </ul>
     </div>
   </div>
@@ -177,5 +256,18 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script>
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.article-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
 </body>
 </html>
