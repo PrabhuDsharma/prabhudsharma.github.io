@@ -3,9 +3,26 @@ layout: page
 title: Microsoft Fabric & Power BI — Learning Blog
 ---
 
-This is a public learning journal focused on **Microsoft Fabric**, **Power BI**, and **Data Engineering**.
+Hi, I'm **Prabhudeep Sharma** — Senior Analytics Consultant and Microsoft Certified Power BI & Fabric professional
+with 3+ years of experience delivering enterprise analytics across Pharma, Manufacturing, and Financial Services.
 
-I write concise, technical explanations based on hands-on work — not marketing summaries.
+This is my public learning journal on **Microsoft Fabric**, **Power BI**, and **Data Engineering** —
+concise, hands-on technical content based on real project work.
+
+<div class="section">
+  <div class="track">
+    <a href="/about"><strong>About Me →</strong></a>
+    <p>Background, skills, certifications, and education.</p>
+  </div>
+  <div class="track">
+    <a href="/projects"><strong>Projects →</strong></a>
+    <p>Real-world case studies across manufacturing, FMCG, and financial services.</p>
+  </div>
+  <div class="track">
+    <a href="/vlog"><strong>Vlog →</strong></a>
+    <p>Video walkthroughs and tutorials on Fabric and Power BI.</p>
+  </div>
+</div>
 
 <div class="section">
   <h2>Learning Tracks</h2>

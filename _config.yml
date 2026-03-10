@@ -4,6 +4,10 @@ theme: minima
 
 header_pages:
   - index.md
+  - about.md
+  - projects.md
   - fabric.md
   - power-bi.md
   - data-engineering.md
+  - vlog.md
+  - contact.md
